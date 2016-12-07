@@ -1,0 +1,6 @@
+ [
+        { "title": "Scala", "cost": 58 },
+        { "title": "java", "cost":70 },
+        { "title": "C#", "cost": 90 },
+        { "title": "PHP", "cost": 30 }
+]
