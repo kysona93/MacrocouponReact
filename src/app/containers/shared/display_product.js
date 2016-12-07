@@ -15,18 +15,22 @@ var scrollSpy  = Scroll.scrollSpy;
 class ProductCardList extends Component{
     constructor(props){
         super(props);
+        this.state={
+            limit: 8
+        }
         this.scrollDownMore = this.scrollDownMore.bind(this);
-
+        // to do auto scroll content
         $(document).scroll(() => {
             if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                alert("You reached botton");
-                this.props.geProducts();
+                //alert("You reached botton");
+                this.setState({limit: (this.state.limit+4)})
+                this.props.geProducts(this.state.limit);
             }
         })
     }
     
     componentWillMount(){
-        this.props.geProducts();
+        this.props.geProducts(this.state.limit);
     }
     // componentDidMount(){
     //     this.props.geProducts();
@@ -36,7 +40,7 @@ class ProductCardList extends Component{
         //console.log("document height=",$(document).height());
     }
     renderProductCard(){
-        alert("render product card");
+        //alert("render product card");
         return(
             <Grid>
                 <Row>
@@ -44,7 +48,7 @@ class ProductCardList extends Component{
                         <Col key={i} xs={12} sm={6} md={3} lg={3}>
                             <ProductCard 
                                 discountPercentage={product.dis_per} 
-                                title={product.title}
+                                title={product.product_name}
                                 location={product.location}
                                 discountPrice={product.dis_price}
                                 originalPrice={product.ori_price}
