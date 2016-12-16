@@ -9,10 +9,10 @@ export default class Signin extends Component{
     constructor(props){
         super(props);
         this.connectFacebook = this.connectFacebook.bind(this);
-        this.connectTweeter = this.connectTweeter.bind(this);
-        this.connectGoogle = this.connectGoogle.bind(this);
+        // this.connectTweeter = this.connectTweeter.bind(this);
+         this.connectGoogle = this.connectGoogle.bind(this);
 
-        // for google
+        // // for google
         this.renderButton = this.renderButton.bind(this);
         this.onSuccess = this.onSuccess.bind(this);
         this.onFailure = this.onFailure.bind(this);
@@ -26,6 +26,16 @@ export default class Signin extends Component{
             messagingSenderId: "526305577021"
         };
         firebase.initializeApp(config);
+
+        // Initialize Firebase for difflang
+        // var config = {
+        //     apiKey: "AIzaSyDZHTwDCMKAlP6w3OmSARd9fzsjI1iLC4g",
+        //     authDomain: "difflang-3ee2f.firebaseapp.com",
+        //     databaseURL: "https://difflang-3ee2f.firebaseio.com",
+        //     storageBucket: "difflang-3ee2f.appspot.com",
+        //     messagingSenderId: "358734159662"
+        // };
+        // firebase.initializeApp(config);
 
         // initailize facebook
         window.fbAsyncInit = function() {
@@ -45,24 +55,24 @@ export default class Signin extends Component{
         }(document, 'script', 'facebook-jssdk'));
 
         // initailize twitter
-        window.twttr = (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-            t = window.twttr || {};
-            if (d.getElementById(id)) return t;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
+        // window.twttr = (function(d, s, id) {
+        //     var js, fjs = d.getElementsByTagName(s)[0],
+        //     t = window.twttr || {};
+        //     if (d.getElementById(id)) return t;
+        //     js = d.createElement(s);
+        //     js.id = id;
+        //     js.src = "https://platform.twitter.com/widgets.js";
+        //     fjs.parentNode.insertBefore(js, fjs);
 
-            t._e = [];
-            t.ready = function(f) {
-                t._e.push(f);
-            };
+        //     t._e = [];
+        //     t.ready = function(f) {
+        //         t._e.push(f);
+        //     };
 
-            return t;
-        }(document, "script", "twitter-wjs"));
+        //     return t;
+        // }(document, "script", "twitter-wjs"));
 
-    } // close constructor
+    } // close constructor 
 
     connectFacebook(){
         FB.login(("/me",function (response) { 
@@ -70,39 +80,39 @@ export default class Signin extends Component{
                 //console.log(JSON.stringify(response));
                  if(response.status === "connected"){            
                     if(response.authResponse){
-                        FB.api("/me?fields=id,name,first_name,last_name,gender,birthday,email","GET",function(response){ 
+                        FB.api("/me?fields=id,name,location,hometown,email,first_name,last_name","GET",function(response){ 
                             var struser=JSON.stringify(response);
                             var user=JSON.parse(struser);
                             //alert(obj.name); // get data from object json
                             console.log("facebook data:",user);
                             
-                            axios({
-                                url: 'http://localhost:9000/api/v1/users/signup',
-                                method: 'post',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Accept-Language': 'en',
-                                    'X-Api-Key': 'AbCdEfGhIjK1',
-                                },
-                                data: JSON.stringify({
-                                    'first_name': user.first_name,
-                                    'last_name': user.last_name,
-                                    'email': user.email
-                                })
-                            })
-                            .then(function (response) {
-                                console.log("response",response);
-                            })
-                            .catch(function (error) {
-                                console.log("error",error);
-                            });
+                            // axios({
+                            //     url: 'http://localhost:9000/api/v1/users/signup',
+                            //     method: 'post',
+                            //     headers: {
+                            //         'Content-Type': 'application/json',
+                            //         'Accept-Language': 'en',
+                            //         'X-Api-Key': 'AbCdEfGhIjK1',
+                            //     },
+                            //     data: JSON.stringify({
+                            //         'first_name': user.first_name,
+                            //         'last_name': user.last_name,
+                            //         'email': user.email
+                            //     })
+                            // })
+                            // .then(function (response) {
+                            //     console.log("response",response);
+                            // })
+                            // .catch(function (error) {
+                            //     console.log("error",error);
+                            // });
 
                         });
                     }
                 }else{
                     alert("Opps! Cannot connect to Facebook");
                 }
-              }),null);    // {scope: 'public_profile,email'}                            
+              }),null );    // {scope: 'public_profile'}                            
     }
 
     connectGoogle(){
@@ -123,26 +133,26 @@ export default class Signin extends Component{
                 "email": profile.email
             }
             console.log("google data:",user);
-            axios({
-                url: 'http://localhost:9000/api/v1/users/signup',
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept-Language': 'en',
-                    'X-Api-Key': 'AbCdEfGhIjK1',
-                },
-                data: JSON.stringify({
-                    'first_name': user.first_name,
-                    'last_name': user.last_name,
-                    'email': user.email
-                })
-            })
-            .then(function (response) {
-                console.log("response",response);
-            })
-            .catch(function (error) {
-                console.log("error",error);
-            });
+            // axios({
+            //     url: 'http://localhost:9000/api/v1/users/signup',
+            //     method: 'post',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Accept-Language': 'en',
+            //         'X-Api-Key': 'AbCdEfGhIjK1',
+            //     },
+            //     data: JSON.stringify({
+            //         'first_name': user.first_name,
+            //         'last_name': user.last_name,
+            //         'email': user.email
+            //     })
+            // })
+            // .then(function (response) {
+            //     console.log("response",response);
+            // })
+            // .catch(function (error) {
+            //     console.log("error",error);
+            // });
 
             // console.log("Google data:");
             // console.log("Sign-in provider: "+profile.providerId);
@@ -225,6 +235,7 @@ export default class Signin extends Component{
             "last_name": splitname[1],
             "email": profile.getEmail()
         }
+        console.log("Google Data: ", JSON.stringify(user))
     }
     // when user are fail with login gmail account 
     onFailure(error) {
@@ -241,7 +252,7 @@ export default class Signin extends Component{
                                 <h3>Sign In with Social Network</h3><br/>
                                 <Button bsStyle="primary" onClick={this.connectFacebook}><i className="fa fa-facebook" aria-hidden="true"></i>&nbsp;Sign up with facebook</Button><br/><br/>
                                 <Button bsStyle="danger" onClick={this.connectGoogle}><i className="fa fa-google-plus" aria-hidden="true"></i>&nbsp;Sign up with google+</Button><br/><br/>
-                                { /*  <div id="signin-google"></div><br/> */ }
+                               <div id="signin-google"></div><br/> 
                                 { /*<Button bsStyle="info" onClick={this.connectTweeter}><i className="fa fa-twitter" aria-hidden="true"></i>&nbsp;Sign up with twitter</Button> */}
                                 { /* <a href="https://api.twitter.com/oauth/authenticate?oauth_token=NPcudxy0yU5T3tBzho7iCotZ3cnetKwcTIRlX0iwRl0">Link</a> */}
                                 { /* <div id="container"></div> */ }

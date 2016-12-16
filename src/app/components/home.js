@@ -1,17 +1,28 @@
 import React from 'react';
 import { Component } from 'react';
-
 import SearchBar from './../containers/search_bar.js';
 import BookList from './../containers/book-list.js';
 import Signin from './../signin/Signin.js'; 
 import ProductCardList from './../containers/shared/display_product.js';
+import Navigation from './navigation.js';
+import ItemBox from './itembox.js';
+import Display from './display.js';
 
-export default class App extends Component{
+export default class Home extends Component{
+    constructor(props){
+        super(props)
+    }
+
     render(){
         return(
             <div> 
-                <ProductCardList />
-                { /* <Signin />
+                 <Navigation myFunc={this.navFunc}/>
+                 <ItemBox />
+                 <Display myFunc={this.disFunc} />
+                { /* 
+                    <Signin />
+                    <ProductCardList />
+                    <Signin />
                     <SearchBar />
                     <BookList />
                 */}
