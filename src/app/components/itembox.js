@@ -4,11 +4,11 @@ export default class ItemBox extends React.Component {
     constructor(props){
         super(props)
     }
-
+ 
     render(){
         return(
             <div style={{"backgroundColor":"pink"}}>
-                <ul>
+                { /* <ul>
                     <li><a href="#">Item 1</a></li>
                     <li><a href="#">Item 2</a></li>
                     <li><a href="#">Item 3</a></li>
@@ -19,7 +19,7 @@ export default class ItemBox extends React.Component {
                     <li><a href="#">Item 8</a></li>
                     <li><a href="#">Item 9</a></li>
                     <li><a href="#">Item 10</a></li>
-                </ul>
+                </ul> */ }
             </div>
         )
     }

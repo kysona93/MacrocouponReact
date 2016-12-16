@@ -4,31 +4,27 @@ import { Navbar, FormGroup, FormControl, Form, ControlLabel, Button } from 'reac
 export default class Navigation extends React.Component {
     constructor(props){
         super(props)
-        this.state={
-            showed: true
-        }
-        this.hideBox = this.hideBox.bind(this)
-        this.showBox = this.showBox.bind(this);
+        this.searchLocation = this.searchLocation.bind(this);
+        this.searchName = this.searchName.bind(this);
     }
 
-    hideBox(){
-        this.setState({showed: false})
+    searchLocation(){
+        alert("location request to server");
     }
-    showBox(){
-        alert("click")
-         this.setState({showed: true})
+    searchName(){
+        alert("name request to server");
     }
     render(){
         return(
             <div>
-                <Navbar onClick={this.hideBox}>
+                <Navbar >
                     <Form inline>
                         <FormGroup controlId="formInlineName">
-                            <FormControl type="text" placeholder="location" />
+                            <FormControl type="text" placeholder="location" onChange={this.searchLocation} />
                         </FormGroup>
                         {' '}
                         <FormGroup controlId="formInlineEmail">
-                            <FormControl type="text" placeholder="product name" />
+                            <FormControl type="text" placeholder="product name" onChange={this.searchName} />
                         </FormGroup>
                         {' '}
                         <Button type="submit"> Search </Button>

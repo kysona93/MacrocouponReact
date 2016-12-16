@@ -6,19 +6,25 @@ import Signin from './../signin/Signin.js';
 import ProductCardList from './../containers/shared/display_product.js';
 import Navigation from './navigation.js';
 import ItemBox from './itembox.js';
-import Display from './display.js';
+import Display from './display.js'; 
 
 export default class Home extends Component{
     constructor(props){
         super(props)
+        this.state={
+            show_box: true
+        }
+        this.handleChildClick = this.handleChildClick.bind(this);
     }
-
+     handleChildClick(){
+         this.setState({show_box: false })
+     }
     render(){
         return(
             <div> 
-                 <Navigation myFunc={this.navFunc}/>
-                 <ItemBox />
-                 <Display myFunc={this.disFunc} />
+                 <Navigation />
+                 { this.state.show_box ? <ItemBox /> : null }
+                 <Display onClick={this.handleChildClick} />
                 { /* 
                     <Signin />
                     <ProductCardList />
